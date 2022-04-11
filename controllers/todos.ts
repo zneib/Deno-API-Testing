@@ -1,6 +1,8 @@
-import { config } from "https://deno.land/x/dotenv/mod.ts";
-const { DATA_API_KEY, APP_ID } = config();
-const BASE_URI = `https://data.mongodb-api.com/app/${APP_ID}/endpoint/data/beta/action`;
+// import { config } from "https://deno.land/x/dotenv/mod.ts";
+// const { DATA_API_KEY, APP_ID } = config();
+const data_api_key = Deno.env.get("DATA_API_KEY")
+const app_id = Deno.env.get("APP_ID")
+const BASE_URI = `https://data.mongodb-api.com/app/${app_id}/endpoint/data/beta/action`;
 const DATA_SOURCE = "deno-cluster";
 const DATABASE = "todo_db";
 const COLLECTION = "todos";
