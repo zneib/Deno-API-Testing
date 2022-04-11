@@ -1,5 +1,5 @@
 import { Router } from "https://deno.land/x/oak/mod.ts";
-import { addTodo } from "./controllers/todos.ts"; // Import controller methods
+import { addTodo, getTodos } from "./controllers/todos.ts"; // Import controller methods
 
 const router = new Router();
 
