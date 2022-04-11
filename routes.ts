@@ -5,7 +5,7 @@ const router = new Router();
 
 // Implement routes
 router
-  .post("/api/todos", addTodo); // Add a todo
+  .post("/api/todos", addTodo) // Add a todo
   .get("/api/todos", getTodos); // Get all todos
 
 export default router;
