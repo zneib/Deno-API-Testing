@@ -11,7 +11,7 @@ const options = {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-    "api-key": DATA_API_KEY 
+    "api-key": data_api_key
   },
   body: ""
 };
