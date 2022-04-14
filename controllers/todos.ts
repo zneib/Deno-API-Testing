@@ -194,4 +194,42 @@ const deleteTodo = async ({
   }
 };
 
-export { addTodo, getTodos, getTodo, updateTodo, deleteTodo };
+const getIncompleteTodos = async ({ response }: { response: any }) => {
+  const URI = `${BASE_URI}/aggregate`;
+  const pipeline = [
+    {
+      $match: {
+        completed: false
+      }
+    }, 
+    {
+      $count: 'incomplete'
+    }
+  ];
+  const query = {
+    dataSource: DATA_SOURCE,
+    database: DATABASE,
+    collection: COLLECTION,
+    pipeline
+  };
+
+  options.body = JSON.stringify(query);
+  const dataResponse = await fetch(URI, options);
+  const incompleteCount = await dataResponse.json();
+  
+  if (incompleteCount) {
+    response.status = 200;
+    response.body = {
+      success: true,
+      incompleteCount,
+    };
+  } else {
+    response.status = 404;
+    response.body = {
+      success: false,
+      msg: "No incomplete todos found",
+    };
+  }
+};
+
+export { addTodo, getTodos, getTodo, updateTodo, deleteTodo, getIncompleteTodos };
