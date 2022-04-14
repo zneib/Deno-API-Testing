@@ -104,7 +104,7 @@ const getTodo = async ({
     collection: COLLECTION,
     database: DATABASE,
     dataSource: DATA_SOURCE,
-    filter: { todoId: parseInt(params.id) }
+    filter: { id: parseInt(params.id) }
   };
   options.body = JSON.stringify(query);
   const dataResponse = await fetch(URI, options);
