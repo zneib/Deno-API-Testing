@@ -92,4 +92,37 @@ const getTodos = async ({ response }: { response: any }) => {
   }
 };
 
-export { addTodo, getTodos };
+const getTodo = async ({
+  params,
+  response,
+}: {
+  params: { id: string };
+  response: any;
+}) => {
+  const URI = `${BASE_URI}/findOne`;
+  const query = {
+    collection: COLLECTION,
+    database: DATABASE,
+    dataSource: DATA_SOURCE,
+    filter: { todoId: parseInt(params.id) }
+  };
+  options.body = JSON.stringify(query);
+  const dataResponse = await fetch(URI, options);
+  const todo = await dataResponse.json();
+  
+  if (todo) {
+    response.status = 200;
+    response.body = {
+      success: true,
+      data: todo,
+    };
+  } else {
+    response.status = 404;
+    response.body = {
+      success: false,
+      msg: "No todo found",
+    };
+  }
+};
+
+export { addTodo, getTodos, getTodo };
