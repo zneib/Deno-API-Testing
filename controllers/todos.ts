@@ -125,4 +125,42 @@ const getTodo = async ({
   }
 };
 
-export { addTodo, getTodos, getTodo };
+const updateTodo = async ({
+  params,
+  request,
+  response,
+}: {
+  params: { id: string };
+  request: any;
+  response: any;
+}) => {
+  try {
+    const body = await request.body();
+    const { title, complete } = await body.value;
+    const URI = `${BASE_URI}/updateOne`;
+    const query = {
+      collection: COLLECTION,
+      database: DATABASE,
+      dataSource: DATA_SOURCE,
+      filter: { todoId: parseInt(params.id) },
+      update: { $set: { title, complete } }
+    };
+    options.body = JSON.stringify(query);
+    const dataResponse = await fetch(URI, options);
+    const todoUpdated = await dataResponse.json();
+    
+    response.status = 200;
+    response.body = { 
+      success: true,
+      todoUpdated 
+    };
+    
+  } catch (err) {
+    response.body = {
+      success: false,
+      msg: err.toString(),
+    };
+  }
+};
+
+export { addTodo, getTodos, getTodo, updateTodo };
