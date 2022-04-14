@@ -163,4 +163,35 @@ const updateTodo = async ({
   }
 };
 
-export { addTodo, getTodos, getTodo, updateTodo };
+const deleteTodo = async ({
+  params,
+  response,
+}: {
+  params: { id: string };
+  response: any;
+}) => {
+  try {
+    const URI = `${BASE_URI}/deleteOne`;
+    const query = {
+      collection: COLLECTION,
+      database: DATABASE,
+      dataSource: DATA_SOURCE,
+      filter: { id: parseInt(params.id) }
+    };
+    options.body = JSON.stringify(query);
+    const dataResponse = await fetch(URI, options);
+    const todoDeleted = await dataResponse.json();
+
+    response.status = 201;
+    response.body = {
+      todoDeleted
+    };
+  } catch (err) {
+    response.body = {
+      success: false,
+      msg: err.toString(),
+    };
+  }
+};
+
+export { addTodo, getTodos, getTodo, updateTodo, deleteTodo };
