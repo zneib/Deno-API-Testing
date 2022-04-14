@@ -136,14 +136,14 @@ const updateTodo = async ({
 }) => {
   try {
     const body = await request.body();
-    const { title, complete } = await body.value;
+    const { title, completed } = await body.value;
     const URI = `${BASE_URI}/updateOne`;
     const query = {
       collection: COLLECTION,
       database: DATABASE,
       dataSource: DATA_SOURCE,
-      filter: { todoId: parseInt(params.id) },
-      update: { $set: { title, complete } }
+      filter: { id: parseInt(params.id) },
+      update: { $set: { title, completed } }
     };
     options.body = JSON.stringify(query);
     const dataResponse = await fetch(URI, options);
