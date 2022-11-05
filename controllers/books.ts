@@ -136,14 +136,14 @@ const updateBook = async ({
 }) => {
   try {
     const body = await request.body();
-    const { title, completed } = await body.value;
+    const { title, subtitle, author, pages, description, website, category } = await body.value;
     const URI = `${BASE_URI}/updateOne`;
     const query = {
       collection: COLLECTION,
       database: DATABASE,
       dataSource: DATA_SOURCE,
       filter: { id: parseInt(params.id) },
-      update: { $set: { title, completed } }
+      update: { $set: { title, subtitle, author, pages, description, website, category } }
     };
     options.body = JSON.stringify(query);
     const dataResponse = await fetch(URI, options);
