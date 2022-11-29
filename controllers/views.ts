@@ -57,4 +57,37 @@ const addView = async ({
   }
 };
 
-export { addView };
+const getViews = async ({ response }: { response: any }) => {
+  try {
+    const URI = `${BASE_URI}/find`;
+    const query = {
+      collection: COLLECTION,
+      database: DATABASE,
+      dataSource: DATA_SOURCE
+    };
+    options.body = JSON.stringify(query);
+    const dataResponse = await fetch(URI, options);
+    const allViews = await dataResponse.json();
+
+    if (allViews) {
+      response.status = 200;
+      response.body = {
+        success: true,
+        data: allViews,
+      };
+    } else {
+      response.status = 500;
+      response.body = {
+        success: false,
+        msg: "Internal Server Error",
+      };
+    }
+  } catch (err) {
+    response.body = {
+      success: false,
+      msg: err.toString(),
+    };
+  }
+};
+
+export { addView, getViews };

@@ -2,7 +2,7 @@ import { Router } from "https://deno.land/x/oak/mod.ts";
 import { addTodo, getTodos, getTodo, updateTodo, deleteTodo, getIncompleteTodos } from "./controllers/todos.ts"; // Import controller methods
 import { addBook, getBooks, getBook, updateBook, deleteBook } from "./controllers/books.ts"; // Import controller methods
 import { addRating } from "./controllers/ratings.ts"; // Import controller methods
-import { addView } from "./controllers/views.ts"; // Import controller methods
+import { addView, getViews } from "./controllers/views.ts"; // Import controller methods
 
 const router = new Router();
 
@@ -12,6 +12,7 @@ router
   .post("/api/books", addBook) // Add a book
   .post("/api/ratings", addRating) // Add a rating
   .post("/api/views", addView) // Add a rating
+  .get("/api/views", getViews) // Get all views
   .get("/api/todos", getTodos) // Get all todos
   .get("/api/books", getBooks) // Get all books
   .get("/api/todos/:id", getTodo) // Get one todo
